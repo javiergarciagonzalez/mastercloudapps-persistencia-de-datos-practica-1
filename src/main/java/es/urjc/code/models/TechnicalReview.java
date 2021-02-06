@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -21,12 +18,15 @@ public class TechnicalReview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //private Airplane checkedAirplane;
+    @ManyToOne
+    private Airplane checkedAirplane;
     private Date startDate;
     private Date endDate;
     private Integer spentHoursOnReview;
     private String reviewType;
     private String workDescription;
     //private Airport airport;
+    @OneToOne
+    private MechanicalEmployee mechanicalEmployee;
 
 }

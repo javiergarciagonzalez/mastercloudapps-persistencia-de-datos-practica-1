@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class Airplane {
     private String manufacturer;
     private String model;
     private BigDecimal flightHours;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="checkedAirplane")
+    private List<TechnicalReview> technicalReviews;
 }

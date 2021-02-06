@@ -1,5 +1,6 @@
 package es.urjc.code;
 
+import es.urjc.code.dtos.AirplaneDto;
 import es.urjc.code.models.Airplane;
 import es.urjc.code.models.MechanicalEmployee;
 import es.urjc.code.models.TechnicalReview;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class DatabaseLoader implements CommandLineRunner {
@@ -29,10 +31,13 @@ public class DatabaseLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Airplane airplane = Airplane.builder().flightHours(BigDecimal.valueOf(1000.508)).licensePlate("LP54125").manufacturer("Airbus").model("A380").build();
         airplaneRepository.save(airplane);
-        TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis()-50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").build();
-        technicalReviewRepository.save(technicalReview);
         MechanicalEmployee mechanicalEmployee = MechanicalEmployee.builder().code("EployeeCode").name("Pedro").lastName("Picapiedra").companyName("URJC").education("Universidad").startingDate(new Date(System.currentTimeMillis())).build();
         mechanicalEmployeeRepository.save(mechanicalEmployee);
+        TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis()-50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").checkedAirplane(airplane).mechanicalEmployee(mechanicalEmployee).build();
+        technicalReviewRepository.save(technicalReview);
+
+        List<AirplaneDto> airplaneDto = airplaneRepository.findAirplaneMechanicalReviewer();
+        System.out.println(airplaneDto.get(0));
 
         System.out.println("Finish");
 
