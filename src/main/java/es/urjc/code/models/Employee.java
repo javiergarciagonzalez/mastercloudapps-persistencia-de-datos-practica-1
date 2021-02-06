@@ -1,14 +1,13 @@
 package es.urjc.code.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +24,8 @@ public class Employee {
     private String lastName;
     protected String role;
     private String companyName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private List<CabinCrewFlight> flights = new ArrayList<>();
 
     public Employee(String code, String name, String lastName, String role, String companyName) {
         this.code = code;

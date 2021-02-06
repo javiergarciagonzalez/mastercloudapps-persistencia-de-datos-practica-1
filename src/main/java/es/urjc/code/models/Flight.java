@@ -5,11 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,11 +23,15 @@ public class Flight {
 
     private String flightCode;
     private String airline;
-    //private Airplane airplane;
-    //private Airport originAirport;
-    //private Airport distinationAirport;
+    @ManyToOne
+    private Airplane airplane;
+    @ManyToOne
+    private Airport originAirport;
+    @ManyToOne
+    private Airport destinationAirport;
     private Date departureDate;
     private Date arrivalDate;
     private Float flightDuration;
-    //private Employee[] cabinCrew;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
+    private List<CabinCrewFlight> employees = new ArrayList<>();
 }

@@ -1,12 +1,9 @@
 package es.urjc.code;
 
 import es.urjc.code.dtos.AirplaneDto;
-import es.urjc.code.models.Airplane;
-import es.urjc.code.models.MechanicalEmployee;
-import es.urjc.code.models.TechnicalReview;
-import es.urjc.code.repository.AirplaneRepository;
-import es.urjc.code.repository.MechanicalEmployeeRepository;
-import es.urjc.code.repository.TechnicalReviewRepository;
+import es.urjc.code.dtos.FlightDto;
+import es.urjc.code.models.*;
+import es.urjc.code.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
@@ -20,11 +17,17 @@ public class DatabaseLoader implements CommandLineRunner {
     private AirplaneRepository airplaneRepository;
     private TechnicalReviewRepository technicalReviewRepository;
     private MechanicalEmployeeRepository mechanicalEmployeeRepository;
+    private FlightRepository flightRepository;
+    private CabinCrewFlightRepository cabinCrewFlightRepository;
+    private AirportRepository airportRepository;
 
-    public DatabaseLoader(AirplaneRepository airplaneRepository, TechnicalReviewRepository technicalReviewRepository, MechanicalEmployeeRepository mechanicalEmployeeRepository) {
+    public DatabaseLoader(AirplaneRepository airplaneRepository, TechnicalReviewRepository technicalReviewRepository, MechanicalEmployeeRepository mechanicalEmployeeRepository, FlightRepository flightRepository, CabinCrewFlightRepository cabinCrewFlightRepository, AirportRepository airportRepository) {
         this.airplaneRepository = airplaneRepository;
         this.technicalReviewRepository = technicalReviewRepository;
         this.mechanicalEmployeeRepository = mechanicalEmployeeRepository;
+        this.flightRepository = flightRepository;
+        this.cabinCrewFlightRepository = cabinCrewFlightRepository;
+        this.airportRepository = airportRepository;
     }
 
     @Override
@@ -38,6 +41,21 @@ public class DatabaseLoader implements CommandLineRunner {
 
         List<AirplaneDto> airplaneDto = airplaneRepository.findAirplaneMechanicalReviewer();
         System.out.println(airplaneDto.get(0));
+
+        Airport originAirport = Airport.builder().city("Madrid").country("Spain").IATACode("MAD").name("Barajas").build();
+        Airport destinationAirport = Airport.builder().city("Barcelona").country("Spain").IATACode("BAR").name("Prat").build();
+        airportRepository.save(originAirport);
+        airportRepository.save(destinationAirport);
+
+        //  1612134000000 01/02/2021
+        Flight flight = Flight.builder().flightCode("ERSDA").flightDuration(1.5f).airline("IBERIA").airplane(airplane).originAirport(originAirport).destinationAirport(destinationAirport).departureDate(new Date(1612134000000L)).arrivalDate(new Date(1612134000000L)).build();
+        flightRepository.save(flight);
+
+        CabinCrewFlight cabinCrewFlight = new CabinCrewFlight(flight, mechanicalEmployee);
+        cabinCrewFlightRepository.save(cabinCrewFlight);
+
+        List<FlightDto> flightDto = flightRepository.findFlightsByCityAndDateOrderedByTime("Barcelona");
+        System.out.println(flightDto.get(0));
 
         System.out.println("Finish");
 
