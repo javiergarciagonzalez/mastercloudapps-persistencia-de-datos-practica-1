@@ -4,14 +4,12 @@ import es.urjc.code.models.Airport;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class FlightDto {
 
     private long id;
@@ -23,4 +21,8 @@ public class FlightDto {
     private Date departureDate;
     private Date arrivalDate;
     private Float flightDuration;
+
+    public String toString(){
+      return flightCode + "-" + airline + "-" + originAirport.getIATACode() + "-" + destinationAirport.getIATACode() + "-" + departureDate + "-" + arrivalDate + "-" + flightDuration;
+    };
 }

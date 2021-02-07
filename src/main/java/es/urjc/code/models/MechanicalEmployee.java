@@ -26,7 +26,7 @@ public class MechanicalEmployee extends Employee {
     private Date startingDate;
     private String education;
 
-    @OneToMany(mappedBy = "mechanicalEmployee", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanicalEmployee")
     private List<TechnicalReview> technicalReview;
 
     @Builder

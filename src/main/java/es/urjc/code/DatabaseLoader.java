@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import es.urjc.code.dtos.TripulantAccumulatedFlightTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
@@ -56,11 +57,11 @@ public class DatabaseLoader implements CommandLineRunner {
 
         MechanicalEmployee mechanicalEmployee1 = MechanicalEmployee.builder().code("EmployeeCode").name("Pedro").lastName("Picapiedra").companyName("URJC").education("Universidad").startingDate(new Date(System.currentTimeMillis())).build();
 
-        TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis()-50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").checkedAirplane(airplane).mechanicalEmployee(mechanicalEmployee1).build();
+        Airport originAirport = Airport.builder().city("Madrid").country("Spain").IATACode("MAD").name("Barajas").build();
 
-        Airport originAirport = Airport.builder().city("Madrid").country("Spain").IATACode("MAD").name("Barajas").technicalReviews(Arrays.asList(technicalReview)).build();
-        Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").IATACode("AMS").name("Schiphol").technicalReviews(Arrays.asList(technicalReview)).build();
+        TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis()-50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").checkedAirplane(airplane).mechanicalEmployee(mechanicalEmployee1).airport(originAirport).build();
 
+        Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").IATACode("AMS").name("Schiphol").build();
         Tripulant tripulant1 = Tripulant.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
 
         Flight flight = new Flight("UX1094", "Iberia", airplane, originAirport, destinationAirport, twoHoursAndAHalfAgo, now, 2.5F);
@@ -68,13 +69,11 @@ public class DatabaseLoader implements CommandLineRunner {
         flight.setTripulants(Arrays.asList(tripulantFlight1));
 
         mechanicalEmployeeRepository.save(mechanicalEmployee1);
+        airplaneRepository.save(airplane);
         airportRepository.save(originAirport);
         airportRepository.save(destinationAirport);
         technicalReviewRepository.save(technicalReview);
-        airplaneRepository.save(airplane);
-
         flightRepository.save(flight);
-        tripulantRepository.save(tripulant1);
 
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         String flightDtoDate = dateFormat.format(twoHoursAndAHalfAgo);
@@ -88,6 +87,9 @@ public class DatabaseLoader implements CommandLineRunner {
 
         List<TripulantDto> tripulantDto = tripulantRepository.getTripulantDestinationCitiesAndDatesByTripulantCode(tripulant1.getCode());
         System.out.println(tripulantDto.get(0));
+
+        List<TripulantAccumulatedFlightTime> tripulantAccumulatedFlightTime = tripulantRepository.getTripulantFlightsAmountAndTotalFlightTime();
+        System.out.println(tripulantAccumulatedFlightTime.get(0));
 
         System.out.println("Finish");
 
