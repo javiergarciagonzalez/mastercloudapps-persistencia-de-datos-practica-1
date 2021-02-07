@@ -73,7 +73,6 @@ public class DatabaseLoader implements CommandLineRunner {
         flight.setTripulants(Arrays.asList(tripulantFlight1));
         flightRepository.save(flight);
 
-
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         String flightDtoDate = dateFormat.format(twoHoursAndAHalfAgo);
 

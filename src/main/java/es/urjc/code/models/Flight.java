@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Data
@@ -41,7 +41,6 @@ public class Flight {
     private Date arrivalDate;
     private Float flightDuration;
 
-    // @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
     private List<TripulantFlight> tripulants;
 
