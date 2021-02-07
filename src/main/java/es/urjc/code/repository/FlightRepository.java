@@ -14,7 +14,8 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     @Query(value = "select new es.urjc.code.dtos.FlightDto(a.id, f.flightCode, f.airline, f.originAirport, f.destinationAirport, f.departureDate, f.arrivalDate, f.flightDuration) " +
                    "from Flight f join Airport a on a.id = f.destinationAirport.id " +
                    "where a.city = :city " +
-                   "order by f.arrivalDate")
-    List<FlightDto> findFlightsByCityAndDateOrderedByTime(@Param("city") String city);
+                   "AND FUNCTION('DATE', f.arrivalDate) = FUNCTION('DATE', :date) " +
+                   "order by f.arrivalDate DESC")
+    List<FlightDto> findFlightsByCityAndDateOrderedByTime(@Param("city") String city, @Param("date") String date);
 
 }

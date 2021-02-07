@@ -9,8 +9,8 @@ import es.urjc.code.repository.FlightRepository;
 import es.urjc.code.repository.TripulantRepository;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -31,13 +31,15 @@ public class DatabaseQueryRunner {
 
     public void run() {
         System.out.println("=========================================== QUERING ===========================================");
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        String flightDtoDate = dateFormat.format(twoHoursAndAHalfAgo);
+        LocalDate flightDtoDate = LocalDate.parse(
+            "2021-02-07" ,
+            DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
+        );
 
         List<AirplaneDto> airplaneDto = airplaneRepository.findAirplaneMechanicalReviewer();
         System.out.println(airplaneDto.get(0));
 
-        List<FlightDto> flightDto = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam");
+        List<FlightDto> flightDto = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
         System.out.println(flightDto.get(0));
 
         List<TripulantDto> tripulantDto = tripulantRepository.getTripulantDestinationCitiesAndDatesByTripulantCode("code01");
