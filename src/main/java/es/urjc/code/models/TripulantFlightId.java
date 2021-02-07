@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Embeddable
-public class CabinCrewFlightId implements Serializable {
+@Builder
+public class TripulantFlightId implements Serializable {
     private Long flightId;
-    private Long employeeId;
+    private Long tripulantId;
 }

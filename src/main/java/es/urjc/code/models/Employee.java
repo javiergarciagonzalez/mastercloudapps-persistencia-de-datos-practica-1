@@ -1,19 +1,22 @@
 package es.urjc.code.models;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,16 +25,10 @@ public class Employee {
     private String code;
     private String name;
     private String lastName;
-    protected String role;
-    private String companyName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
-    private List<CabinCrewFlight> flights = new ArrayList<>();
 
-    public Employee(String code, String name, String lastName, String role, String companyName) {
+    public Employee(String code, String name, String lastName) {
         this.code = code;
         this.name = name;
         this.lastName = lastName;
-        this.role = role;
-        this.companyName = companyName;
     }
 }

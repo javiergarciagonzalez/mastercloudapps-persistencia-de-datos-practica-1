@@ -1,4 +1,6 @@
 package es.urjc.code.models;
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -20,4 +22,7 @@ public class Airport {
     private String name;
     private String city;
     private String country;
+
+    @OneToMany(mappedBy = "airport")
+    private List<TechnicalReview> technicalReviews;
 }

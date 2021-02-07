@@ -18,15 +18,19 @@ public class TechnicalReview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    private Airplane checkedAirplane;
     private Date startDate;
     private Date endDate;
     private Integer spentHoursOnReview;
     private String reviewType;
     private String workDescription;
-    //private Airport airport;
-    @OneToOne
+
+    @ManyToOne
+    private Airplane checkedAirplane;
+
+    @ManyToOne
+    private Airport airport;
+
+    @ManyToOne
     private MechanicalEmployee mechanicalEmployee;
 
 }

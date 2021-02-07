@@ -1,5 +1,6 @@
 package es.urjc.code.models;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,22 +12,23 @@ import javax.persistence.MapsId;
 @Entity
 @Data
 @NoArgsConstructor
-public class CabinCrewFlight {
+public class TripulantFlight {
 
     @EmbeddedId
-    private CabinCrewFlightId id;
+    private TripulantFlightId id;
 
     @ManyToOne
     @MapsId("flightId")
     private Flight flight;
 
     @ManyToOne
-    @MapsId("employeeId")
-    private Employee employee;
+    @MapsId("tripulantId")
+    private Tripulant tripulant;
 
-    public CabinCrewFlight(Flight flight, Employee employee) {
+    @Builder
+    public TripulantFlight(Flight flight, Tripulant tripulant) {
         this.flight = flight;
-        this.employee = employee;
-        this.id = new CabinCrewFlightId(flight.getId(), employee.getId());
+        this.tripulant = tripulant;
+        this.id = new TripulantFlightId(flight.getId(), tripulant.getId());
     }
 }

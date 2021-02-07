@@ -1,6 +1,5 @@
 package es.urjc.code.dtos;
 
-import es.urjc.code.models.Airplane;
 import es.urjc.code.models.Airport;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +18,9 @@ public class FlightDto {
 
     private String flightCode;
     private String airline;
-  //  private Airplane airplane;
     private Airport originAirport;
     private Airport destinationAirport;
     private Date departureDate;
     private Date arrivalDate;
     private Float flightDuration;
-
 }
