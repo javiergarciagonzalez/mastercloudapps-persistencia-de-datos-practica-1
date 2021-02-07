@@ -12,14 +12,14 @@ import org.springframework.data.repository.query.Param;
 
 public interface TripulantRepository extends JpaRepository<Tripulant, Long> {
 
-    @Query(value = "select new es.urjc.code.dtos.TripulantDto(t.name, t.lastName, a.city, f.departureDate) " +
-                   "from Tripulant t join TripulantFlight tf on t.id = tf.tripulant.id join Flight f on f.id = tf.flight.id join Airport a on a.id = f.originAirport.id " +
-                   "where t.code = :tripulantCode")
+    @Query(value = "SELECT new es.urjc.code.dtos.TripulantDto(t.name, t.lastName, a.city, f.departureDate) " +
+                   "FROM Tripulant t JOIN TripulantFlight tf ON t.id = tf.tripulant.id JOIN Flight f ON f.id = tf.flight.id join Airport a ON a.id = f.originAirport.id " +
+                   "WHERE t.code = :tripulantCode")
     List<TripulantDto> getTripulantDestinationCitiesAndDatesByTripulantCode(@Param("tripulantCode") String tripulantCode);
 
-    @Query(value = "select new es.urjc.code.dtos.TripulantAccumulatedFlightTime(t.name, t.lastName, count(tf), sum(f.flightDuration)) " +
-                   "from Tripulant t join TripulantFlight tf on t.id = tf.tripulant.id join Flight f on f.id = tf.flight.id " +
-                   "group by t.name, t.lastName")
+    @Query(value = "SELECT new es.urjc.code.dtos.TripulantAccumulatedFlightTime(t.name, t.lastName, COUNT(tf), SUM(f.flightDuration)) " +
+                   "FROM Tripulant t join TripulantFlight tf ON t.id = tf.tripulant.id JOIN Flight f ON f.id = tf.flight.id " +
+                   "GROUP BY t.name, t.lastName")
     List<TripulantAccumulatedFlightTime> getTripulantFlightsAmountAndTotalFlightTime();
 
 }
