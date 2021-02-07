@@ -1,11 +1,6 @@
 package es.urjc.code.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +16,7 @@ public abstract class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Column(unique = true)
     private String code;
     private String name;
     private String lastName;

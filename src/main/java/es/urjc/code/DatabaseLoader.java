@@ -57,11 +57,11 @@ public class DatabaseLoader implements CommandLineRunner {
 
         MechanicalEmployee mechanicalEmployee1 = MechanicalEmployee.builder().code("EmployeeCode").name("Pedro").lastName("Picapiedra").companyName("URJC").education("Universidad").startingDate(new Date(System.currentTimeMillis())).build();
 
-        Airport originAirport = Airport.builder().city("Madrid").country("Spain").IATACode("MAD").name("Barajas").build();
+        Airport originAirport = Airport.builder().city("Madrid").country("Spain").iataCode("MAD").name("Barajas").build();
 
         TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis()-50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").checkedAirplane(airplane).mechanicalEmployee(mechanicalEmployee1).airport(originAirport).build();
 
-        Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").IATACode("AMS").name("Schiphol").build();
+        Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").iataCode("AMS").name("Schiphol").build();
         Tripulant tripulant1 = Tripulant.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
 
         Flight flight = new Flight("UX1094", "Iberia", airplane, originAirport, destinationAirport, twoHoursAndAHalfAgo, now, 2.5F);

@@ -20,7 +20,7 @@ public class Airplane {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Column(unique = true)
     private String licensePlate;
     private String manufacturer;
     private String model;

@@ -23,6 +23,6 @@ public class FlightDto {
     private Float flightDuration;
 
     public String toString(){
-      return flightCode + "-" + airline + "-" + originAirport.getIATACode() + "-" + destinationAirport.getIATACode() + "-" + departureDate + "-" + arrivalDate + "-" + flightDuration;
+      return flightCode + "-" + airline + "-" + originAirport.getIataCode() + "-" + destinationAirport.getIataCode() + "-" + departureDate + "-" + arrivalDate + "-" + flightDuration;
     };
 }
