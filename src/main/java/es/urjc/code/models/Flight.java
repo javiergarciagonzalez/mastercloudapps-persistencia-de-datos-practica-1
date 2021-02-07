@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Flight {
 
     @Id
@@ -38,15 +40,4 @@ public class Flight {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
     private List<TripulantFlight> tripulants;
-
-    public Flight(String flightCode, String airline, Airplane airplane, Airport originAirport, Airport destinationAirport, Date departureDate, Date arrivalDate, Float flightDuration) {
-        this.flightCode = flightCode;
-        this.airline = airline;
-        this.airplane = airplane;
-        this.originAirport = originAirport;
-        this.destinationAirport = destinationAirport;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
-        this.flightDuration = flightDuration;
-    }
 }

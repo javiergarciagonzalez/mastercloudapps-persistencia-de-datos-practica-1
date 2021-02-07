@@ -43,7 +43,7 @@ public class DatabaseLoader {
         Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").iataCode("AMS").name("Schiphol").build();
         Tripulant tripulant1 = Tripulant.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
 
-        Flight flight = new Flight("UX1094", "Iberia", airplane, originAirport, destinationAirport, twoHoursAndAHalfAgo, now, 2.5F);
+        Flight flight = Flight.builder().flightCode("UX1094").airline("Iberia").airplane(airplane).originAirport(originAirport).destinationAirport(destinationAirport).departureDate(twoHoursAndAHalfAgo).arrivalDate(now).flightDuration(2.5F).build();
         TripulantFlight tripulantFlight1 = TripulantFlight.builder().flight(flight).tripulant(tripulant1).build();
         flight.setTripulants(Arrays.asList(tripulantFlight1));
 
