@@ -23,7 +23,7 @@ public class AirplaneLoader {
             Airplane.builder().flightHours(BigDecimal.valueOf(1000.508)).licensePlate("LP54125").manufacturer("Airbus").model("A380").build(),
             Airplane.builder().flightHours(BigDecimal.valueOf(200)).licensePlate("G-ZBJB").manufacturer("Boeing").model("787-8").build(),
             Airplane.builder().flightHours(BigDecimal.valueOf(288)).licensePlate("H-524964").manufacturer("Airbus").model("A321-1").build(),
-            Airplane.builder().flightHours(BigDecimal.valueOf(200)).licensePlate("Q-608909").manufacturer("Airbus").model("777-300ER").build()
+            Airplane.builder().flightHours(BigDecimal.valueOf(800)).licensePlate("Q-608909").manufacturer("Airbus").model("777-300ER").build()
         );
         airplaneRepository.saveAll(airplanes);
         System.out.println("=========================================== FINISH LOADING AIRPLANES ===========================================");

@@ -36,8 +36,8 @@ public class DatabaseQueryRunner {
             DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
         );
 
-        List<AirplaneDto> airplaneDto = airplaneRepository.findAirplaneMechanicalReviewer();
-        System.out.println(airplaneDto.get(0));
+        this.query1();
+
 
         List<FlightDto> flightDto = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
         System.out.println(flightDto.get(0));
@@ -49,5 +49,15 @@ public class DatabaseQueryRunner {
         System.out.println(crewMemberAccumulatedFlightTime.get(0));
 
         System.out.println("=========================================== STOP QUERING ===========================================");
+    }
+
+    private void query1() {
+        System.out.println("=========================================== QUERY 1 ===========================================");
+        System.out.println("Para cada avión, mostrar el nombre y apellidos de los mecánicos responsables de sus revisiones.");
+
+        List<AirplaneDto> airplaneDtos = airplaneRepository.findAirplaneMechanicalReviewer();
+        for (AirplaneDto airplaneDto : airplaneDtos) {
+            System.out.println(airplaneDto);
+        }
     }
 }
