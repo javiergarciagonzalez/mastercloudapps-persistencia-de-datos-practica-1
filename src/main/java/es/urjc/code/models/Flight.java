@@ -43,5 +43,5 @@ public class Flight {
     private Float flightDuration;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")
-    private List<TripulantFlight> tripulants;
+    private List<CrewMemberFlight> crewMembers;
 }

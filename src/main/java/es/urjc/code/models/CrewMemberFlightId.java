@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 @Builder
-public class TripulantFlightId implements Serializable {
+public class CrewMemberFlightId implements Serializable {
     private Long flightId;
-    private Long tripulantId;
+    private Long crewMemberId;
 }

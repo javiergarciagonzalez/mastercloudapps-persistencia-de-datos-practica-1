@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TripulantDto {
+public class CrewMemberDto {
     private String name;
     private String lastName;
     private String originCity;

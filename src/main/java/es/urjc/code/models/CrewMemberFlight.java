@@ -12,23 +12,23 @@ import javax.persistence.MapsId;
 @Entity
 @Data
 @NoArgsConstructor
-public class TripulantFlight {
+public class CrewMemberFlight {
 
     @EmbeddedId
-    private TripulantFlightId id;
+    private CrewMemberFlightId id;
 
     @ManyToOne
     @MapsId("flightId")
     private Flight flight;
 
     @ManyToOne
-    @MapsId("tripulantId")
-    private Tripulant tripulant;
+    @MapsId("crewMemberId")
+    private CrewMember crewMember;
 
     @Builder
-    public TripulantFlight(Flight flight, Tripulant tripulant) {
+    public CrewMemberFlight(Flight flight, CrewMember crewMember) {
         this.flight = flight;
-        this.tripulant = tripulant;
-        this.id = new TripulantFlightId(flight.getId(), tripulant.getId());
+        this.crewMember = crewMember;
+        this.id = new CrewMemberFlightId(flight.getId(), crewMember.getId());
     }
 }

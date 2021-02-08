@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TripulantAccumulatedFlightTime {
+public class CrewMemberAccumulatedFlightTime {
 
     private String name;
     private String lastName;

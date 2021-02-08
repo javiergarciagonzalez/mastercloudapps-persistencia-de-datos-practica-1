@@ -15,19 +15,20 @@ public class DatabaseLoader {
     private MechanicalEmployeeRepository mechanicalEmployeeRepository;
     private FlightRepository flightRepository;
     private AirportRepository airportRepository;
-    private TripulantRepository tripulantRepository;
+    private CrewMemberRepository crewMemberRepository;
 
     long MINUTES_IN_MS = 1000 * 60 * 24;
     private Date now = new Date(System.currentTimeMillis());
     private Date twoHoursAndAHalfAgo = new Date(System.currentTimeMillis() - (150 * MINUTES_IN_MS));
+    private Date arrivalDate = new Date(1612701233000L);
 
-    public DatabaseLoader(AirplaneRepository airplaneRepository, TechnicalReviewRepository technicalReviewRepository, MechanicalEmployeeRepository mechanicalEmployeeRepository, FlightRepository flightRepository, AirportRepository airportRepository, TripulantRepository tripulantRepository) {
+    public DatabaseLoader(AirplaneRepository airplaneRepository, TechnicalReviewRepository technicalReviewRepository, MechanicalEmployeeRepository mechanicalEmployeeRepository, FlightRepository flightRepository, AirportRepository airportRepository, CrewMemberRepository crewMemberRepository) {
         this.airplaneRepository = airplaneRepository;
         this.technicalReviewRepository = technicalReviewRepository;
         this.mechanicalEmployeeRepository = mechanicalEmployeeRepository;
         this.flightRepository = flightRepository;
         this.airportRepository = airportRepository;
-        this.tripulantRepository = tripulantRepository;
+        this.crewMemberRepository = crewMemberRepository;
     }
 
     public void load() {
@@ -41,11 +42,11 @@ public class DatabaseLoader {
         TechnicalReview technicalReview = TechnicalReview.builder().reviewType("Periodical").spentHoursOnReview(10).startDate(new Date(System.currentTimeMillis() - 50000000)).endDate(new Date(System.currentTimeMillis())).workDescription("Work description OK").checkedAirplane(airplane).mechanicalEmployee(mechanicalEmployee1).airport(originAirport).build();
 
         Airport destinationAirport = Airport.builder().city("Amsterdam").country("Netherlands").iataCode("AMS").name("Schiphol").build();
-        Tripulant tripulant1 = Tripulant.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
+        CrewMember crewMember1 = CrewMember.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
 
-        Flight flight = Flight.builder().flightCode("UX1094").airline("Iberia").airplane(airplane).originAirport(originAirport).destinationAirport(destinationAirport).departureDate(twoHoursAndAHalfAgo).arrivalDate(now).flightDuration(2.5F).build();
-        TripulantFlight tripulantFlight1 = TripulantFlight.builder().flight(flight).tripulant(tripulant1).build();
-        flight.setTripulants(Arrays.asList(tripulantFlight1));
+        Flight flight = Flight.builder().flightCode("UX1094").airline("Iberia").airplane(airplane).originAirport(originAirport).destinationAirport(destinationAirport).departureDate(twoHoursAndAHalfAgo).arrivalDate(arrivalDate).flightDuration(2.5F).build();
+        CrewMemberFlight crewMemberFlight1 = CrewMemberFlight.builder().flight(flight).crewMember(crewMember1).build();
+        flight.setCrewMembers(Arrays.asList(crewMemberFlight1));
 
         mechanicalEmployeeRepository.save(mechanicalEmployee1);
         airplaneRepository.save(airplane);

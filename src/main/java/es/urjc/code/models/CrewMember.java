@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Tripulant extends Employee {
+public class CrewMember extends Employee {
 
     private String role;
     private String companyName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripulant")
-    private List<TripulantFlight> flights = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "crewMember")
+    private List<CrewMemberFlight> flights = new ArrayList<>();
 
     @Builder
-    public Tripulant(String code, String name, String lastName, String role, String companyName) {
+    public CrewMember(String code, String name, String lastName, String role, String companyName) {
         super(code, name, lastName);
         this.role = role;
         this.companyName = companyName;
