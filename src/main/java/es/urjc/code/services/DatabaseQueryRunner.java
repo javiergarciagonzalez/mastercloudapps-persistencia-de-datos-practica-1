@@ -31,16 +31,12 @@ public class DatabaseQueryRunner {
 
     public void run() {
         System.out.println("=========================================== QUERING ===========================================");
-        LocalDate flightDtoDate = LocalDate.parse(
-            "2021-02-07" ,
-            DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
-        );
 
         this.query1();
+        this.query2();
 
 
-        List<FlightDto> flightDto = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
-        System.out.println(flightDto.get(0));
+
 
         List<CrewMemberDto> crewMemberDto = crewMemberRepository.getCrewMemberDestinationCitiesAndDatesByCrewMemberCode("code01");
         System.out.println(crewMemberDto.get(0));
@@ -58,6 +54,21 @@ public class DatabaseQueryRunner {
         List<AirplaneDto> airplaneDtos = airplaneRepository.findAirplaneMechanicalReviewer();
         for (AirplaneDto airplaneDto : airplaneDtos) {
             System.out.println(airplaneDto);
+        }
+    }
+
+    private void query2() {
+        System.out.println("=========================================== QUERY 2 ===========================================");
+        System.out.println("Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
+
+        LocalDate flightDtoDate = LocalDate.parse(
+            "2021-02-07" ,
+            DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
+        );
+
+        List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
+        for (FlightDto flightDto : flightDtos) {
+            System.out.println(flightDto);
         }
     }
 }

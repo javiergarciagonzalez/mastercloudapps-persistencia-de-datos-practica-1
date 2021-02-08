@@ -19,13 +19,11 @@ public class DatabaseLoader {
     private FlightRepository flightRepository;
 
     long MINUTES_IN_MS = 1000 * 60 * 24;
-    private Date now = new Date(System.currentTimeMillis());
     private Date twoHoursAndAHalfAgo = new Date(System.currentTimeMillis() - (150 * MINUTES_IN_MS));
     private Date arrivalDate = new Date(1612701233000L);
 
     public DatabaseLoader(FlightRepository flightRepository, AirplaneLoader airplaneLoader, AirportLoader airportLoader, TechnicalReviewLoader technicalReviewLoader, MechanicalEmployeeLoader mechanicalEmployeeLoader, CrewMemberLoader crewMemberLoader) {
         this.flightRepository = flightRepository;
-
         this.airplaneLoader = airplaneLoader;
         this.airportLoader = airportLoader;
         this.technicalReviewLoader = technicalReviewLoader;
