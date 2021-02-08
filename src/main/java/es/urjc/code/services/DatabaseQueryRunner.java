@@ -58,7 +58,14 @@ public class DatabaseQueryRunner {
             DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
             );
 
-        List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
+        String city = "Amsterdam";
+        String date = flightDtoDate.toString();
+
+        System.out.println("-----Query parameters: ");
+        System.out.println("-----1. - City: " + city);
+        System.out.println("-----2. - Date: " + date);
+
+        List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime(city, date);
         for (FlightDto flightDto : flightDtos) {
             System.out.println(flightDto);
         }
