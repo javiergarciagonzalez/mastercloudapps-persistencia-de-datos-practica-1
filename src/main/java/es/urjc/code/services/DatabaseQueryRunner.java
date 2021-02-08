@@ -42,6 +42,7 @@ public class DatabaseQueryRunner {
     private void query1() {
         System.out.println("=========================================== QUERY 1 ===========================================");
         System.out.println("Para cada avión, mostrar el nombre y apellidos de los mecánicos responsables de sus revisiones.");
+        System.out.println("\n");
 
         List<AirplaneDto> airplaneDtos = airplaneRepository.findAirplaneMechanicalReviewer();
         for (AirplaneDto airplaneDto : airplaneDtos) {
@@ -52,6 +53,7 @@ public class DatabaseQueryRunner {
     private void query2() {
         System.out.println("=========================================== QUERY 2 ===========================================");
         System.out.println("Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
+        System.out.println("\n");
 
         LocalDate flightDtoDate = LocalDate.parse(
             "2021-02-07" ,
@@ -64,6 +66,7 @@ public class DatabaseQueryRunner {
         System.out.println("-----Query parameters: ");
         System.out.println("-----1. - City: " + city);
         System.out.println("-----2. - Date: " + date);
+        System.out.println("\n");
 
         List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime(city, date);
         for (FlightDto flightDto : flightDtos) {
@@ -74,6 +77,7 @@ public class DatabaseQueryRunner {
     private void query3() {
         System.out.println("=========================================== QUERY 3 ===========================================");
         System.out.println("Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
+        System.out.println("\n");
 
         List<CrewMemberDto> crewMemberDtos = crewMemberRepository.getCrewMemberDestinationCitiesAndDatesByCrewMemberCode("code01");
         for (CrewMemberDto crewMemberDto : crewMemberDtos) {
@@ -84,6 +88,7 @@ public class DatabaseQueryRunner {
     private void query4() {
         System.out.println("=========================================== QUERY 4 ===========================================");
         System.out.println("Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
+        System.out.println("\n");
 
         List<CrewMemberAccumulatedFlightTime> crewMemberAccumulatedFlightTime = crewMemberRepository.getCrewMemberFlightsAmountAndTotalFlightTime();
         for (CrewMemberAccumulatedFlightTime info : crewMemberAccumulatedFlightTime) {
