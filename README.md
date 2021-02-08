@@ -20,8 +20,11 @@ Creemos que la herencia que más encaja es `TABLE_PER_CLASS`.
 - `MechanicalEmployee` puede hacer muchas revisiones, pero una revision solo es realizada por un mecánico
 - `TechnicalReview` guarda una referencia de `Airplane`, `MechanicalEmployee` y `Airport`
 - `Airport` puede tener muchas revisiones, pero una revision se hace solo en un aeropuerto
+- `Flight` puede tener un avión, un aeropuerto de origen y destino, pero un avión, un aeropuerto de origen y destino puede estar en distintos vuelos. También un vuelo está compuesto por varios tripulantes y esos tripulantes pueden estar en vatios vuelos danto como consecuencia una relación n:m que hemos separado en dos relaciones 1:n por eficiencia como se vio en clase.
 # Propagación
 
 - `Airplane` se propaga como cascade `CascadeType.ALL` ya que cuando un avión se guarda o se elimina parece que no tiene sentido que sus revisiones existan. También se ha usado `orphanRemoval = true` para que se hagan los deletes de las órdenes si se borran desde los aviones.
 - `MechanicalEmployee` no se propaga, parece interesante que las revisiones se queden aunque un mecánico no este en la compañía y que no se guarde una revision cuando el mecánico es guardado.
 - `Airport` no se propaga, parece interesante que las revisiones se queden aunque un aeropuerto deje de estar operativo
+- `Flight` se propaga como cascade `CascadeType.ALL` ya que cuando un vuelo se elimina parece que no tiene sentido que sus tripulación este. También se ha usado `orphanRemoval = true` para que se hagan los deletes de las órdenes si se borran desde los vuelos. Parece razonable que el control se lleve desde esa tabla.
+

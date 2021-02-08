@@ -14,6 +14,7 @@ public class DatabaseLoader {
     private AirportLoader airportLoader;
     private TechnicalReviewLoader technicalReviewLoader;
     private MechanicalEmployeeLoader mechanicalEmployeeLoader;
+    private CrewMemberLoader crewMemberLoader;
 
     private FlightRepository flightRepository;
 
@@ -22,13 +23,14 @@ public class DatabaseLoader {
     private Date twoHoursAndAHalfAgo = new Date(System.currentTimeMillis() - (150 * MINUTES_IN_MS));
     private Date arrivalDate = new Date(1612701233000L);
 
-    public DatabaseLoader(FlightRepository flightRepository, AirplaneLoader airplaneLoader, AirportLoader airportLoader, TechnicalReviewLoader technicalReviewLoader, MechanicalEmployeeLoader mechanicalEmployeeLoader) {
+    public DatabaseLoader(FlightRepository flightRepository, AirplaneLoader airplaneLoader, AirportLoader airportLoader, TechnicalReviewLoader technicalReviewLoader, MechanicalEmployeeLoader mechanicalEmployeeLoader, CrewMemberLoader crewMemberLoader) {
         this.flightRepository = flightRepository;
 
         this.airplaneLoader = airplaneLoader;
         this.airportLoader = airportLoader;
         this.technicalReviewLoader = technicalReviewLoader;
         this.mechanicalEmployeeLoader = mechanicalEmployeeLoader;
+        this.crewMemberLoader = crewMemberLoader;
     }
 
     public void load() {
@@ -38,14 +40,14 @@ public class DatabaseLoader {
         List<Airport> airports = airportLoader.load();
         List<MechanicalEmployee> mechanicalEmployees = mechanicalEmployeeLoader.load();
         List<TechnicalReview> technicalReviews = technicalReviewLoader.load(airports, mechanicalEmployees, airplanes);
+        List<CrewMember> crewMembers = crewMemberLoader.load();
 
-        CrewMember crewMember1 = CrewMember.builder().code("code01").name("John").lastName("Doe").role("Flight attendant").companyName("Iberia").build();
 
         Flight flight = Flight.builder().flightCode("UX1094").airline("Iberia").airplane(airplanes.get(0)).originAirport(airports.get(0)).destinationAirport(airports.get(1)).departureDate(twoHoursAndAHalfAgo).arrivalDate(arrivalDate).flightDuration(2.5F).build();
-        CrewMemberFlight crewMemberFlight1 = CrewMemberFlight.builder().flight(flight).crewMember(crewMember1).build();
+        CrewMemberFlight crewMemberFlight1 = CrewMemberFlight.builder().flight(flight).crewMember(crewMembers.get(0)).build();
         flight.setCrewMembers(Collections.singletonList(crewMemberFlight1));
 
-        flightRepository.save(flight);
+        flightRepository.saveAndFlush(flight);
         System.out.println("========================================= END LOADING =========================================");
     }
 
