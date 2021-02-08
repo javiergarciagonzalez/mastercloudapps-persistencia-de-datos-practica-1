@@ -21,7 +21,6 @@ public class DatabaseQueryRunner {
     private CrewMemberRepository crewMemberRepository;
 
     long MINUTES_IN_MS = 1000 * 60 * 24;
-    private Date twoHoursAndAHalfAgo = new Date(System.currentTimeMillis() - (150 * MINUTES_IN_MS));
 
     public DatabaseQueryRunner(AirplaneRepository airplaneRepository, FlightRepository flightRepository, CrewMemberRepository crewMemberRepository) {
         this.airplaneRepository = airplaneRepository;
@@ -34,10 +33,7 @@ public class DatabaseQueryRunner {
 
         this.query1();
         this.query2();
-
-        List<CrewMemberDto> crewMemberDto = crewMemberRepository.getCrewMemberDestinationCitiesAndDatesByCrewMemberCode("code01");
-        System.out.println(crewMemberDto.get(0));
-
+        this.query3();
         this.query4();
 
         System.out.println("=========================================== STOP QUERING ===========================================");
@@ -65,6 +61,16 @@ public class DatabaseQueryRunner {
         List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
         for (FlightDto flightDto : flightDtos) {
             System.out.println(flightDto);
+        }
+    }
+
+    private void query3() {
+        System.out.println("=========================================== QUERY 3 ===========================================");
+        System.out.println("Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
+
+        List<CrewMemberDto> crewMemberDtos = crewMemberRepository.getCrewMemberDestinationCitiesAndDatesByCrewMemberCode("code01");
+        for (CrewMemberDto crewMemberDto : crewMemberDtos) {
+            System.out.println(crewMemberDto);
         }
     }
 
