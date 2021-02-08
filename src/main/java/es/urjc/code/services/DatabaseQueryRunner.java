@@ -35,14 +35,10 @@ public class DatabaseQueryRunner {
         this.query1();
         this.query2();
 
-
-
-
         List<CrewMemberDto> crewMemberDto = crewMemberRepository.getCrewMemberDestinationCitiesAndDatesByCrewMemberCode("code01");
         System.out.println(crewMemberDto.get(0));
 
-        List<CrewMemberAccumulatedFlightTime> crewMemberAccumulatedFlightTime = crewMemberRepository.getCrewMemberFlightsAmountAndTotalFlightTime();
-        System.out.println(crewMemberAccumulatedFlightTime.get(0));
+        this.query4();
 
         System.out.println("=========================================== STOP QUERING ===========================================");
     }
@@ -64,11 +60,21 @@ public class DatabaseQueryRunner {
         LocalDate flightDtoDate = LocalDate.parse(
             "2021-02-07" ,
             DateTimeFormatter.ofPattern( "yyyy-MM-dd" )
-        );
+            );
 
         List<FlightDto> flightDtos = flightRepository.findFlightsByCityAndDateOrderedByTime("Amsterdam", flightDtoDate.toString());
         for (FlightDto flightDto : flightDtos) {
             System.out.println(flightDto);
+        }
+    }
+
+    private void query4() {
+        System.out.println("=========================================== QUERY 4 ===========================================");
+        System.out.println("Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
+
+        List<CrewMemberAccumulatedFlightTime> crewMemberAccumulatedFlightTime = crewMemberRepository.getCrewMemberFlightsAmountAndTotalFlightTime();
+        for (CrewMemberAccumulatedFlightTime info : crewMemberAccumulatedFlightTime) {
+            System.out.println(info);
         }
     }
 }
