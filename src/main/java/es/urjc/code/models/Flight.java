@@ -39,7 +39,7 @@ public class Flight {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalDate;
-    
+
     private Float flightDuration;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flight")

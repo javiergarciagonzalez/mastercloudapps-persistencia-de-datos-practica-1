@@ -26,6 +26,6 @@ public class Airplane {
     private String model;
     private BigDecimal flightHours;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="checkedAirplane")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="checkedAirplane", orphanRemoval = true)
     private List<TechnicalReview> technicalReviews;
 }
