@@ -3,6 +3,8 @@
 Comando docker alternativo propuesto por el compañero Jaime Hernandez para levantar MYSQL
 ```docker run -p 3306:3306 --name mysql-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=test -e -d mysql/mysql-server:8.0.23```
 
+En esta práctica hemos tomado las siguientes asunciones:
+
 # Herencia
 
 Creemos que la herencia que más encaja es `TABLE_PER_CLASS`.
@@ -15,8 +17,11 @@ Creemos que la herencia que más encaja es `TABLE_PER_CLASS`.
 # Relaciones
 
 - `Airplane` puede tener muchas revisiones, pero una revision solo es de un avión
-
-
+- `MechanicalEmployee` puede hacer muchas revisiones, pero una revision solo es realizada por un mecánico
+- `TechnicalReview` guarda una referencia de `Airplane`, `MechanicalEmployee` y `Airport`
+- `Airport` puede tener muchas revisiones, pero una revision se hace solo en un aeropuerto
 # Propagación
 
 - `Airplane` se propaga como cascade `CascadeType.ALL` ya que cuando un avión se guarda o se elimina parece que no tiene sentido que sus revisiones existan. También se ha usado `orphanRemoval = true` para que se hagan los deletes de las órdenes si se borran desde los aviones.
+- `MechanicalEmployee` no se propaga, parece interesante que las revisiones se queden aunque un mecánico no este en la compañía y que no se guarde una revision cuando el mecánico es guardado.
+- `Airport` no se propaga, parece interesante que las revisiones se queden aunque un aeropuerto deje de estar operativo

@@ -23,6 +23,6 @@ public class Airport {
     private String city;
     private String country;
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "airport")
+    @OneToMany(mappedBy = "airport")
     private List<TechnicalReview> technicalReviews;
 }

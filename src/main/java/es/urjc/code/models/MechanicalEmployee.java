@@ -1,13 +1,10 @@
 package es.urjc.code.models;
 
-// import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-// import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +23,7 @@ public class MechanicalEmployee extends Employee {
     private Date startingDate;
     private String education;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mechanicalEmployee")
+    @OneToMany(mappedBy = "mechanicalEmployee")
     private List<TechnicalReview> technicalReview;
 
     @Builder

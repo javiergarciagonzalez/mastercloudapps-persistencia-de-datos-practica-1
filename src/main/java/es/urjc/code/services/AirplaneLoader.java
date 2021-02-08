@@ -2,11 +2,13 @@ package es.urjc.code.services;
 
 import es.urjc.code.models.Airplane;
 import es.urjc.code.repository.AirplaneRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class AirplaneLoader {
 
     private AirplaneRepository airplaneRepository;
@@ -22,9 +24,9 @@ public class AirplaneLoader {
             Airplane.builder().flightHours(BigDecimal.valueOf(200)).licensePlate("G-ZBJB").manufacturer("Boeing").model("787-8").build(),
             Airplane.builder().flightHours(BigDecimal.valueOf(288)).licensePlate("H-524964").manufacturer("Airbus").model("A321-1").build(),
             Airplane.builder().flightHours(BigDecimal.valueOf(200)).licensePlate("Q-608909").manufacturer("Airbus").model("777-300ER").build()
-            );
+        );
         airplaneRepository.saveAll(airplanes);
-        System.out.println("=========================================== Finish LOADING AIRPLANES ===========================================");
+        System.out.println("=========================================== FINISH LOADING AIRPLANES ===========================================");
         return airplanes;
     }
 }
